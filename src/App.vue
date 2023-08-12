@@ -20,8 +20,13 @@ const fromStr = ref()
 const toStr = ref()
 // 调用转换
 const fromChangeEvent = function () {
+  let text = fromStr.value
+  if (text == "" || text == "null" || !text) {
+    toStr.value = ""
+    return
+  }
   try {
-    toStr.value = new ToStruct(fromStr.value).getTo()
+    toStr.value = new ToStruct(text).getTo()
   } catch (e) {
     if (e instanceof Error) {
       ElNotification({
