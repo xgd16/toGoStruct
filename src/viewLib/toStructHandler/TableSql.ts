@@ -3,7 +3,7 @@
  * @param mysqlCreateTable MySQL 创建表语法字符串
  * @returns 转换后的 Go 结构体字符串
  */
-export function convertToGoStruct(mysqlCreateTable: string): string {
+export function TableSqlToGoStruct(mysqlCreateTable: string): string {
     const lines = mysqlCreateTable.split('\n');
     const structName = lines[0].match(/create table (\w+)/i)?.[1];
     // 处理match可能为null

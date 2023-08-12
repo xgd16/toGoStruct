@@ -1,5 +1,6 @@
 import {getStrType, StrType} from "./strType";
-import {convertToGoStruct} from "./toStructHandler/TableSql";
+import {TableSqlToGoStruct} from "./toStructHandler/TableSql";
+import {JsonToGoStruct} from "./toStructHandler/Json";
 
 export class ToStruct {
     // 转换前的
@@ -17,7 +18,10 @@ export class ToStruct {
     getTo():string {
         switch (this.fromDataType) {
             case StrType.TableSql:
-                this.switchText = convertToGoStruct(this.fromText)
+                this.switchText = TableSqlToGoStruct(this.fromText)
+                break
+            case StrType.Json:
+                this.switchText = JsonToGoStruct(this.fromText, "YourStructName")
                 break
         }
 

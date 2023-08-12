@@ -14,12 +14,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {ToStruct} from "./viewLib/toStruct";
+import {ElNotification} from "element-plus";
 // 定义输入框内容变量
 const fromStr = ref()
 const toStr = ref()
 // 调用转换
 const fromChangeEvent = function () {
-  toStr.value = new ToStruct(fromStr.value).getTo()
+  try {
+    toStr.value = new ToStruct(fromStr.value).getTo()
+  } catch (e) {
+    if (e instanceof Error) {
+      ElNotification({
+        title: "ERROR!!!",
+        message: e.message,
+        position: 'bottom-right',
+        duration: 0,
+      })
+    }
+  }
 }
 </script>
 
