@@ -5,6 +5,7 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "895740313@qq.com",
   "asar": true,
+  "icon": "public/icon.png",
   "directories": {
     "output": "release/${version}"
   },
