@@ -40,12 +40,14 @@ const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL
 const indexHtml = join(process.env.DIST, 'index.html')
 
+const width = 1280, height = 960
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
-    width: 1200,
-    height: 800,
+    width: width,
+    height: height,
     icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
+    frame: false, /*去掉顶部导航 去掉关闭按钮 最大化最小化按钮*/
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -116,4 +118,33 @@ ipcMain.handle('open-win', (_, arg) => {
   } else {
     childWindow.loadFile(indexHtml, { hash: arg })
   }
+})
+
+ipcMain.on('windows-min', () => {
+  (win as any).minimize()
+})
+
+
+ipcMain.on('windows-max', () => {
+  const sys = process.platform
+
+  if ((win as any).isMaximized()) {
+    if (sys == 'win32') {
+      (win as any).restore()
+    }
+
+    if (sys == 'darwin') {
+      (win as any).setContentSize(width, height);
+    }
+  } else {
+    (win as any).maximize()
+  }
+})
+
+ipcMain.on('windows-close', () => {
+  (win as any).close()
+})
+
+ipcMain.on('windows-full-screen', () => {
+  (win as any).setFullScreen(!(win as any).isFullScreen())
 })

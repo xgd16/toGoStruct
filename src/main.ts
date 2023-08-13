@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import "./style.css"
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+import 'remixicon/fonts/remixicon.css'
 import App from './App.vue'
 import { InstallCodemirro } from "codemirror-editor-vue3"
 import './samples/node-api'

@@ -1,4 +1,4 @@
-import {getStrType, StrType} from "./strType";
+import {getStrType, GetStrTypeName, StrType} from "./strType";
 import {TableSqlToGoStruct} from "./toStructHandler/TableSql";
 import {JsonToGoStruct} from "./toStructHandler/Json";
 
@@ -17,6 +17,10 @@ export class ToStruct {
 
     getStrType():StrType {
         return this.fromDataType
+    }
+
+    getStrTypeName(): string {
+        return GetStrTypeName(this.fromDataType)
     }
 
     getTo():string {

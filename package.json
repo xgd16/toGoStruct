@@ -38,6 +38,7 @@
   "dependencies": {
     "codemirror": "^5.65.12",
     "codemirror-editor-vue3": "^2.3.0",
-    "element-plus": "^2.3.9"
+    "element-plus": "^2.3.9",
+    "remixicon": "^3.5.0"
   }
 }
