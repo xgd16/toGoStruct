@@ -15,6 +15,10 @@ export class ToStruct {
         this.fromDataType = getStrType(from)
     }
 
+    getStrType():StrType {
+        return this.fromDataType
+    }
+
     getTo():string {
         switch (this.fromDataType) {
             case StrType.TableSql:
