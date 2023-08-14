@@ -5,9 +5,10 @@
  */
 export function TableSqlToGoStruct(mysqlCreateTable: string): string {
     const lines = mysqlCreateTable.split('\n');
-    const structName = lines[0].match(/create table (\w+)/i)?.[1];
-    // 处理match可能为null
-    if (!structName) return ""
+    const structNameMatches = lines[0].match(/create table `?(\w+)`?/i);
+    const structName = structNameMatches?.[1];
+    // 处理 match 可能为 null
+    if (!structName) return "";
 
     const exportedStructName = convertToCamelCase(structName);
 
@@ -27,18 +28,18 @@ export function TableSqlToGoStruct(mysqlCreateTable: string): string {
             continue; // 跳过 primary key 行
         }
 
-        const parts = line.split(/\s+/);
+        const fieldMatches = line.match(/`?(\w+)`?\s+(\w+)/);
+        if (!fieldMatches) continue;
 
-        if (parts.length < 2) {
-            continue; // 跳过不完整的行
-        }
+        const fieldName = fieldMatches[1];
+        const fieldType = fieldMatches[2];
 
-        const fieldName = parts[0].split('\t')[0]; // 处理包含制表符的字段名
-        const fieldType = parts[1];
-
-        // 获取 comment 内容，如果存在
         const commentMatches = line.match(/comment\s+'(.*)'/i);
         const comment = commentMatches ? commentMatches[1] : '';
+
+        if (!fieldName || !fieldType) {
+            continue; // 跳过不完整的行
+        }
 
         const goFieldName = convertToCamelCase(fieldName);
         const exportedFieldName = capitalizeFirstLetter(goFieldName);
@@ -51,6 +52,8 @@ export function TableSqlToGoStruct(mysqlCreateTable: string): string {
 
     return goStruct;
 }
+
+
 
 /**
  * 将字符串首字母大写

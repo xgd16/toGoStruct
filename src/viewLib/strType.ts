@@ -24,9 +24,10 @@ export const getStrType = (text:string):StrType => {
     return defaultStrType
 }
 export function isValidCreateTableSyntax(query: string): boolean {
-    const createTablePattern = /^CREATE\s+TABLE\s+\w+\s+\(/i;
+    const createTablePattern = /^CREATE\s+TABLE\s+`?\w+`?\s+\(/i;
     return createTablePattern.test(query);
 }
+
 
 export function isValidJSON(input: string): boolean {
     try {

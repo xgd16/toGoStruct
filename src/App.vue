@@ -156,6 +156,7 @@ const ViewTopMsg = (msg: string) => {
   }
 
   .view-box-item {
+    width: 50%;
     padding: 2px 5px 5px 5px;
     flex: 1;
   }
