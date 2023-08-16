@@ -20,7 +20,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "build-mac": "vue-tsc --noEmit && vite build && electron-builder build --mac",
+    "build-win": "vue-tsc --noEmit && vite build && electron-builder build --win",
     "preview": "vite preview"
   },
   "devDependencies": {
